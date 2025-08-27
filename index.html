@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="cs" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaktivní Průvodce nákupem vložek stepprs</title>
+    <!-- Chosen Palette: Custom - Warm Neutrals (Off-white, Taupe, Dark Gray) with Muted Teal and Soft Coral accents -->
+    <!-- Application Structure Plan: A single-page interactive guide structured thematically. Starts with the main verdict, then an interactive comparison of the two product versions, followed by an explanation of the underlying business problems, a market context comparison, and a final actionable purchase strategy. This structure prioritizes user decision-making by presenting the most critical information first and then allowing deeper exploration, which is more effective than a linear report format. -->
+    <!-- Visualization & Content Choices: 1. Core Paradox: Interactive Bar Chart (Chart.js) to compare Original vs. Knockoff. Goal: Compare. Interaction: Buttons update chart and text for different attributes. Justification: More engaging than a static table. 2. Business Model: HTML/CSS Flowchart. Goal: Organize. Justification: Visually explains a process clearly without complex libraries. 3. Market Context: Radar Chart (Chart.js). Goal: Compare. Interaction: Can show multiple products on multiple axes. Justification: Ideal for multi-attribute comparison. 4. Final Strategy: Styled HTML cards. Goal: Inform. Justification: Clearly separates the two recommended paths for the user. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F8F7F4; color: #333333; }
+        .card { background-color: #FFFFFF; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); padding: 1.5rem; }
+        .nav-button { transition: all 0.2s ease-in-out; }
+        .nav-button.active { background-color: #588B8B; color: white; }
+        .nav-button:not(.active):hover { background-color: #EAE7E1; }
+        .chart-container { position: relative; width: 100%; max-width: 700px; margin-left: auto; margin-right: auto; height: 300px; max-height: 400px; }
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
+        .accent-coral { color: #F28C8C; }
+        .accent-teal { color: #588B8B; }
+        .bg-accent-coral-light { background-color: #FDECEC; }
+        .bg-accent-teal-light { background-color: #EBF3F3; }
+    </style>
+</head>
+<body>
+
+    <header class="text-center py-10 px-4">
+        <h1 class="text-4xl md:text-5xl font-bold text-[#588B8B] mb-3">Průvodce nákupem vložek stepprs</h1>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">Interaktivní analýza, která vám pomůže pochopit paradox kvality a vyhnout se chybnému nákupu.</p>
+    </header>
+
+    <nav class="sticky top-0 bg-[#F8F7F4]/80 backdrop-blur-sm z-10 py-4 mb-8 border-b border-gray-200">
+        <div class="container mx-auto flex justify-center flex-wrap gap-2 px-4">
+            <a href="#verdict" class="nav-button font-semibold py-2 px-4 rounded-full">Finální verdikt</a>
+            <a href="#comparison" class="nav-button font-semibold py-2 px-4 rounded-full">Interaktivní srovnání</a>
+            <a href="#investigation" class="nav-button font-semibold py-2 px-4 rounded-full">Proč ten rozdíl?</a>
+            <a href="#market" class="nav-button font-semibold py-2 px-4 rounded-full">Tržní kontext</a>
+            <a href="#strategy" class="nav-button font-semibold py-2 px-4 rounded-full">Nákupní strategie</a>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 md:px-8 space-y-12">
+
+        <section id="verdict" class="card text-center">
+            <h2 class="text-3xl font-bold mb-4">Finální verdikt: Varování pro spotřebitele</h2>
+            <p class="text-gray-600 mb-6 max-w-3xl mx-auto">Naše analýza odhalila vzácný paradox: neoficiální verze vložek Stepprs jsou výrazně kvalitnější než „originál“. Nákup z oficiálního webu je spojen s extrémním rizikem obdržení podřadného produktu a nepřijatelnou dobou dodání.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-accent-coral-light border-l-4 border-red-500 p-4 rounded-r-lg text-left">
+                    <h3 class="font-bold text-lg text-red-800">Oficiální web stepprs.com</h3>
+                    <p class="font-bold text-xl">DŮRAZNĚ SE NEDOPORUČUJE</p>
+                    <p class="text-gray-700 mt-1">Vysoká pravděpodobnost zklamání kvůli nízké kvalitě, špatnému servisu a extrémnímu zpoždění.</p>
+                </div>
+                <div class="bg-accent-teal-light border-l-4 border-teal-600 p-4 rounded-r-lg text-left">
+                    <h3 class="font-bold text-lg text-teal-800">Neoficiální verze (např. Amazon)</h3>
+                    <p class="font-bold text-xl">VYSOKORIZIKOVÁ SÁZKA</p>
+                    <p class="text-gray-700 mt-1">Potenciál získat kvalitní produkt, ale bez záruky úspěchu. Vyžaduje opatrný výběr prodejce.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="comparison" class="card">
+            <h2 class="text-3xl font-bold text-center mb-2">Interaktivní srovnání: Příběh dvou vložek</h2>
+            <p class="text-center text-gray-600 mb-6">Klikněte na vlastnosti níže a prozkoumejte propastný rozdíl mezi „originálem“ a chválenou „napodobeninou“.</p>
+            <div class="flex justify-center flex-wrap gap-3 mb-6" id="comparison-controls">
+                <button data-attribute="quality" class="nav-button active py-2 px-5 rounded-full font-semibold">Kvalita</button>
+                <button data-attribute="durability" class="nav-button py-2 px-5 rounded-full font-semibold">Odolnost</button>
+                <button data-attribute="comfort" class="nav-button py-2 px-5 rounded-full font-semibold">Pohodlí</button>
+                <button data-attribute="verdict" class="nav-button py-2 px-5 rounded-full font-semibold">Verdikt</button>
+            </div>
+            <div class="chart-container">
+                <canvas id="comparisonChart"></canvas>
+            </div>
+            <div id="comparison-text" class="mt-6 p-4 bg-gray-50 rounded-lg max-w-3xl mx-auto text-center">
+            </div>
+        </section>
+
+        <section id="investigation" class="card">
+            <h2 class="text-3xl font-bold text-center mb-6">Proč ten rozdíl? Odhalení problémů</h2>
+            <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Rozdíly v kvalitě nejsou náhodné. Jsou příznakem problematického obchodního modelu, nekonzistentních materiálů a nespolehlivé logistiky, které trápí značku Stepprs.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold text-center mb-4">Podezření na dropshipping</h3>
+                    <div class="flex flex-col items-center space-y-2 text-center">
+                        <div class="font-semibold p-3 rounded-lg bg-gray-100 w-full">1. Objednávka na stepprs.com</div>
+                        <div class="text-2xl accent-teal">▼</div>
+                        <div class="p-3 rounded-lg bg-gray-100 w-full">2. Objednávka přeposlána výrobci v Číně</div>
+                        <div class="text-2xl accent-teal">▼</div>
+                        <div class="p-3 rounded-lg bg-gray-100 w-full">3. Výrobce zasílá (často nekvalitní) produkt</div>
+                        <div class="text-2xl accent-teal">▼</div>
+                        <div class="font-semibold p-3 rounded-lg bg-accent-coral-light w-full">4. Doručení po 6+ týdnech</div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-center mb-4">Materiálová nesrovnalost</h3>
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-lg bg-accent-coral-light">
+                            <h4 class="font-bold text-red-800">„Originál“</h4>
+                            <p class="text-gray-700">Základní PU/EVA pěna. Popisováno jako "tenké" a "chatrné", rychle se sešlapává.</p>
+                        </div>
+                        <div class="p-4 rounded-lg bg-accent-teal-light">
+                            <h4 class="font-bold text-teal-800">„Napodobenina“</h4>
+                            <p class="text-gray-700">Hustá paměťová pěna s gelovými polštářky. Poskytuje "magickou" úlevu a odolnost.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="market" class="card">
+            <h2 class="text-3xl font-bold text-center mb-2">Tržní kontext: tlumení vs. podpora</h2>
+            <p class="text-center text-gray-600 mb-6 max-w-3xl mx-auto">„Dobrá“ napodobenina Stepprs exceluje v tlumení nárazů. Jak si stojí v porovnání se zavedenými značkami, které se zaměřují na strukturální podporu klenby?</p>
+            <div class="chart-container">
+                <canvas id="marketChart"></canvas>
+            </div>
+        </section>
+
+        <section id="strategy" class="card">
+            <h2 class="text-3xl font-bold text-center mb-6">Vaše nákupní strategie</h2>
+             <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Na základě analýzy existují dvě jasné cesty. Vaše volba závisí na vaší ochotě riskovat a na tom, co od vložek skutečně potřebujete: maximální tlumení, nebo strukturální podporu.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="p-6 rounded-lg bg-gray-50 border-2 border-dashed border-amber-500">
+                    <h3 class="text-2xl font-bold text-amber-700 mb-3">Cesta 1: lov na kvalitní napodobeninu</h3>
+                    <p class="mb-4 text-gray-600">Pro ty, kteří hledají maximální tlumení a jsou ochotni podstoupit riziko.</p>
+                    <ul class="space-y-2 text-left list-disc list-inside">
+                        <li><strong>Přiznejte si riziko:</strong> Úspěch není zaručen.</li>
+                        <li><strong>Hledejte na Amazonu:</strong> To je jediný potvrzený zdroj.</li>
+                        <li><strong>Klíčová slova:</strong> Hledejte "paměťová pěna" a "gel".</li>
+                        <li><strong>Prověřte prodejce:</strong> Čtěte recenze na konkrétního prodejce.</li>
+                    </ul>
+                </div>
+                <div class="p-6 rounded-lg bg-gray-50 border-2 border-solid border-teal-600">
+                    <h3 class="text-2xl font-bold text-teal-800 mb-3">Cesta 2: bezpečná alternativa</h3>
+                    <p class="mb-4 text-gray-600">Pro ty, kteří upřednostňují jistotu a potřebují strukturální podporu klenby.</p>
+                    <ul class="space-y-2 text-left list-disc list-inside">
+                        <li><strong>Zvažte své potřeby:</strong> Potřebujete podporu, ne jen polštář?</li>
+                        <li><strong>Zavedené značky:</strong> Zvolte ověřené značky jako <strong class="font-semibold">Superfeet</strong> nebo <strong class="font-semibold">Powerstep</strong>.</li>
+                        <li><strong>Spolehlivý nákup:</strong> Získáte konzistentní kvalitu a spolehlivé dodání.</li>
+                        <li><strong>Nízké riziko:</strong> Bezpečná a doporučovaná volba.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-10 px-4 mt-8">
+        <p class="text-sm text-gray-500">Tato interaktivní aplikace je byla vygenerována pomocí Gemini 2.5 pro a neslouží ani pro informační účely. Have a nice day.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const comparisonData = {
+                quality: {
+                    label: 'Uváděná kvalita (Hodnocení 1-10)',
+                    original: 2,
+                    knockoff: 9,
+                    text: '<strong class="accent-coral">Originál:</strong> Popisován jako „tenčí kvalita“ a „chatrné kusy pěny“. <br><strong class="accent-teal">Napodobenina:</strong> Chválena jako „tlustší“ a „pevná nebo tuhá“.'
+                },
+                durability: {
+                    label: 'Odolnost (Hodnocení 1-10)',
+                    original: 1,
+                    knockoff: 8,
+                    text: '<strong class="accent-coral">Originál:</strong> Rychle se „sešlapává“. <br><strong class="accent-teal">Napodobenina:</strong> I po 3+ měsících si „drží tvar“ a „vrací se zpět“.'
+                },
+                comfort: {
+                    label: 'Pohodlí a podpora (Hodnocení 1-10)',
+                    original: 2,
+                    knockoff: 10,
+                    text: '<strong class="accent-coral">Originál:</strong> Označován za „noční můru“ a „odpad“. <br><strong class="accent-teal">Napodobenina:</strong> Popisována jako „absolutní magie“ a „tak pohodlná“.'
+                },
+                verdict: {
+                    label: 'Celkový verdikt uživatelů (Hodnocení 1-10)',
+                    original: 1,
+                    knockoff: 9,
+                    text: '<strong class="accent-coral">Originál:</strong> Verdikt zní „VYHNOUT SE“. <br><strong class="accent-teal">Napodobenina:</strong> Verdikt zní „DOPORUČENO“.'
+                }
+            };
+
+            let comparisonChart;
+            const comparisonCtx = document.getElementById('comparisonChart').getContext('2d');
+            const comparisonTextEl = document.getElementById('comparison-text');
+            const comparisonControls = document.getElementById('comparison-controls');
+
+            function updateComparisonChart(attribute) {
+                const data = comparisonData[attribute];
+                comparisonTextEl.innerHTML = data.text;
+                
+                if (comparisonChart) {
+                    comparisonChart.data.datasets[0].data = [data.original, data.knockoff];
+                    comparisonChart.options.scales.x.title.text = data.label;
+                    comparisonChart.update();
+                } else {
+                    comparisonChart = new Chart(comparisonCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['„Originál“ (stepprs.com)', '„Napodobenina“ (Amazon)'],
+                            datasets: [{
+                                data: [data.original, data.knockoff],
+                                backgroundColor: ['#F28C8C', '#588B8B'],
+                                borderColor: ['#F28C8C', '#588B8B'],
+                                borderWidth: 1,
+                                barPercentage: 0.6,
+                                categoryPercentage: 0.7
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y',
+                            maintainAspectRatio: false,
+                            responsive: true,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: { enabled: false }
+                            },
+                            scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    max: 10,
+                                    grid: { drawOnChartArea: false },
+                                    title: { display: true, text: data.label, font: { size: 14 } }
+                                },
+                                y: {
+                                    ticks: { font: { size: 14, weight: '600' } }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+            
+            comparisonControls.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON') {
+                    const attribute = e.target.dataset.attribute;
+                    if (attribute) {
+                        comparisonControls.querySelector('.active').classList.remove('active');
+                        e.target.classList.add('active');
+                        updateComparisonChart(attribute);
+                    }
+                }
+            });
+
+            updateComparisonChart('quality');
+
+            const marketCtx = document.getElementById('marketChart').getContext('2d');
+            new Chart(marketCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Tlumení nárazů', 'Strukturální podpora', 'Odolnost', 'Spolehlivost nákupu', 'Vnímaná účinnost'],
+                    datasets: [{
+                        label: 'Stepprs (Napodobenina)',
+                        data: [9, 4, 7, 2, 8],
+                        fill: true,
+                        backgroundColor: 'rgba(88, 139, 139, 0.2)',
+                        borderColor: '#588B8B',
+                        pointBackgroundColor: '#588B8B',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#588B8B'
+                    }, {
+                        label: 'Superfeet / Powerstep',
+                        data: [5, 9, 8, 10, 9],
+                        fill: true,
+                        backgroundColor: 'rgba(128, 128, 128, 0.2)',
+                        borderColor: '#808080',
+                        pointBackgroundColor: '#808080',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#808080'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    scales: {
+                        r: {
+                            angleLines: { display: false },
+                            suggestedMin: 0,
+                            suggestedMax: 10,
+                            pointLabels: { font: { size: 12 } },
+                            ticks: { backdropColor: 'transparent' }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'top' }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
